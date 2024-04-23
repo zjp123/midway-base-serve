@@ -17,7 +17,7 @@ export class HomeController {
   async home(): Promise<string> {
     return 'Hello Midwayjs!'
   }
-  async login(): Promise<string> {
+  async login() {
     // const { username, password } = this.ctx.body
     // const user = this.userService[username]
     // if (!user || !(await bcrypt.compare(password, user.password))) {
