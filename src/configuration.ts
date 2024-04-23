@@ -3,7 +3,7 @@ import * as express from '@midwayjs/express'
 import * as redis from '@midwayjs/redis'
 import * as session from '@midwayjs/express-session'
 import { join } from 'path'
-import { RedisService } from '@midwayjs/redis'
+
 
 @Configuration({
   imports: [express, redis],
@@ -17,8 +17,7 @@ export class MainConfiguration {
   sessionStoreManager: session.SessionStoreManager
 
   async onReady() {
-    this.sessionStoreManager.setSessionStore(RedisService, {
-      checkPeriod: 86400000, // prune expired entries every 24h
-    })
+    // this.sessionStoreManager.setSessionStore(, {
+    // })
   }
 }

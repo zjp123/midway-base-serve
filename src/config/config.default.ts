@@ -1,4 +1,6 @@
 import { MidwayConfig } from '@midwayjs/core';
+// import { RedisService } from '@midwayjs/redis'
+
 
 export default {
   // use for cookie sign key, should change to your own and keep security
@@ -8,19 +10,20 @@ export default {
   },
   redis: {
     client: {
-      port: 6379, // Redis port
-      host: '127.0.0.1', // Redis host
+      port: 6379,
+      host: '127.0.0.1',
       password: 'auth',
       db: 0,
     },
   },
   session: {
-    secret: 'zjl_zjp', // must be set in application
+    secret: 'zjl_zjp',
     name: 'zjl',
     cookie: {
-      maxAge: 24 * 3600 * 1000, // ms ---一天过期时间
+      maxAge: 24 * 3600 * 1000,
       httpOnly: true,
       // sameSite: null,
     },
+    // store: '@midwayjs/redis'
   },
-} as MidwayConfig;
+} as unknown as MidwayConfig;
