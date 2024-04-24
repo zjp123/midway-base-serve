@@ -8,14 +8,14 @@ export default {
   express: {
     port: 7001,
   },
-  redis: {
-    client: {
-      port: 6379,
-      host: '127.0.0.1',
-      password: 'auth',
-      db: 0,
-    },
-  },
+  // redis: {
+  //   client: {
+  //     port: 6379,
+  //     host: '127.0.0.1',
+  //     password: 'auth',
+  //     db: 0,
+  //   },
+  // },
   session: {
     secret: 'zjl_zjp',
     name: 'zjl',
