@@ -2,12 +2,13 @@ import { Configuration, App, Inject } from '@midwayjs/core'
 import * as express from '@midwayjs/express'
 // import * as redis from '@midwayjs/redis'
 import * as session from '@midwayjs/express-session'
-import RedisStore from "connect-redis"
+import RedisStore from 'connect-redis'
 import { join } from 'path'
 import redisClient from './db/redis'
+import * as mongoose from '@midwayjs/mongoose'
 
 @Configuration({
-  imports: [express],
+  imports: [express, mongoose],
   importConfigs: [join(__dirname, './config')],
 })
 export class MainConfiguration {
@@ -24,10 +25,12 @@ export class MainConfiguration {
     this.sessionStoreManager.setSessionStore(
       () => {
         return RedisStore
-      },{
-      client: redisClient,
-      prefix: "myapp:",
-    })
+      },
+      {
+        client: redisClient,
+        prefix: 'myapp:',
+      }
+    )
     // this.sessionStoreManager.setSessionStore(RedisStore, {
     //   client: redisClient,
     //   prefix: "myapp:",
