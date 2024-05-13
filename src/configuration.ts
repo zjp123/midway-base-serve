@@ -36,4 +36,8 @@ export class MainConfiguration {
     //   prefix: "myapp:",
     // })
   }
+
+  // async stop() {
+  //   await redisClient.quit()
+  // }
 }

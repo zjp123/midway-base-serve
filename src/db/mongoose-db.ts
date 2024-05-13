@@ -1,7 +1,7 @@
 import { Provide, Inject, Init } from '@midwayjs/core'
 import { MongooseDataSourceManager } from '@midwayjs/mongoose'
-import { Schema, Document } from 'mongoose'
-// import User from '../entity/user'
+import { Schema, Document, Connection } from 'mongoose'
+import User from '../entity/user'
 
 interface User extends Document {
   name: string
@@ -9,39 +9,32 @@ interface User extends Document {
   avatar: string
 }
 
-interface Connection {
-  model<T>(
-    arg0: string,
-    schema: Schema<
-      User,
-      import('mongoose').Model<User, any, any, any, any>,
-      {},
-      {},
-      {},
-      {},
-      import('mongoose').DefaultSchemaOptions,
-      User
-    >
-  ): unknown
-  // 定义连接对象的类型
-  // model: Function
-}
-
 @Provide()
 export class TestService {
   conn: Connection
+  // conn
 
   @Inject()
   dataSourceManager: MongooseDataSourceManager
+  // dataSourceManager
 
   @Init()
   async init() {
     // get default connection
     this.conn = this.dataSourceManager.getDataSource('default')
+    this.conn.on('error', console.error.bind(console, '数据库连接错误'))
+
+    this.conn.once('open', async () => {
+      console.log('成功连接到数据库')
+    })
+  }
+
+  async stop() {
+    await this.conn.close()
   }
 
   async invoke() {
-    const schema = new Schema<User>({
+    const schema = new Schema({
       name: { type: String, required: true },
       email: { type: String, required: true },
       avatar: String,
