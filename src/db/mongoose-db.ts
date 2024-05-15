@@ -1,13 +1,16 @@
 import { Provide, Inject, Init } from '@midwayjs/core'
 import { MongooseDataSourceManager } from '@midwayjs/mongoose'
-import { Schema, Document, Connection } from 'mongoose'
-import User from '../entity/user'
+import { Connection } from 'mongoose'
+// import User from '../entity/user'
 
-interface User extends Document {
-  name: string
-  email: string
-  avatar: string
-}
+// 完全没有必要这样做，因为你在config中配置了mongoose的链接，midwayjs自动帮你连接了
+// 你只需要把mongodb 下载安装好，并且启动就行
+
+// interface User extends Document {
+//   name: string
+//   email: string
+//   avatar: string
+// }
 
 @Provide()
 export class TestService {
@@ -31,20 +34,5 @@ export class TestService {
 
   async stop() {
     await this.conn.close()
-  }
-
-  async invoke() {
-    const schema = new Schema({
-      name: { type: String, required: true },
-      email: { type: String, required: true },
-      avatar: String,
-    })
-    const UserModel = this.conn.model<User>('User', schema)
-    const doc = new UserModel({
-      name: 'Bill',
-      email: 'bill@initech.com',
-      avatar: 'https://i.imgur.com/dM7Thhn.png',
-    })
-    await doc.save()
   }
 }

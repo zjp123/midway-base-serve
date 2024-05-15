@@ -6,6 +6,7 @@ import RedisStore from 'connect-redis'
 import { join } from 'path'
 import redisClient from './db/redis'
 import * as mongoose from '@midwayjs/mongoose'
+// import MogoDBConnect from './db/mongoose-db'
 
 @Configuration({
   imports: [express, mongoose],
@@ -21,7 +22,11 @@ export class MainConfiguration {
   @Inject()
   sessionStoreManager: session.SessionStoreManager
 
+  // @Inject()
+  // dbDBConnect: MogoDBConnect
+
   async onReady() {
+    // this.dbDBConnect()
     this.sessionStoreManager.setSessionStore(
       () => {
         return RedisStore

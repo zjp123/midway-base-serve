@@ -1,7 +1,7 @@
 import { Inject, Controller, Get, Query, Post, Body } from '@midwayjs/core'
 import { Context, Response } from '@midwayjs/express'
 import { UserService } from '../service/user.service'
-import { encryptPassword } from '../utils/index'
+// import { encryptPassword } from '../utils/index'
 @Controller('/api')
 export class APIController {
   @Inject()
@@ -25,7 +25,7 @@ export class APIController {
     @Body('password') password: string
   ) {
     // const { username, password } = this.ctx.body
-
+    console.log(this.ctx.body, 'ooooo')
     // 这里应该有一些基础的验证逻辑
     if (!phone || !password) {
       return this.res.status(400).send('缺少用户名或密码')
@@ -33,7 +33,7 @@ export class APIController {
 
     try {
       // 生成哈希密码
-      const hashedPassword = encryptPassword(password)
+      // const hashedPassword = encryptPassword(password)
 
       // 在数据库中创建用户记录，存储用户名和哈希后的密码
       // createUser(phone, hashedPassword)
