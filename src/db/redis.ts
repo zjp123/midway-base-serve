@@ -4,7 +4,8 @@ const redisClient = new IORedis({
   port: 6379, // Redis 端口号
   host: '127.0.0.1', // Redis 服务器的IP地址
   family: 4, // 4 (IPv4) 或者 6 (IPv6)
-  password: 'auth', // 如果设置了连接密码
+  username: 'zjp',
+  password: '123456', // 如果设置了连接密码
   db: 0,
 })
 // 连接成功
