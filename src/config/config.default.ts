@@ -39,7 +39,7 @@ export default {
           user: 'zjp',
           pass: '123456',
           authSource: 'admin',
-          // maxPoolSize: 10,
+          maxPoolSize: 10,
           // maxTimeMS: 30, 查询时设置
           socketTimeoutMS: 30000, // 设置连接空闲时间的阈值为 30 秒
           connectTimeoutMS: 20000, // 设置连接超时时间为 20 秒
