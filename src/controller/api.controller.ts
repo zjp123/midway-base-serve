@@ -1,7 +1,7 @@
 import { Inject, Controller, Get, Query, Post, Body } from '@midwayjs/core'
 import { Context, Response } from '@midwayjs/express'
 import { UserService } from '../service/user.service'
-// import { encryptPassword } from '../utils/index'
+import { encryptPassword } from '../utils/index'
 @Controller('/api')
 export class APIController {
   @Inject()
@@ -33,10 +33,11 @@ export class APIController {
 
     try {
       // 生成哈希密码
-      // const hashedPassword = encryptPassword(password)
+      const hashedPassword = encryptPassword(password)
 
       // 在数据库中创建用户记录，存储用户名和哈希后的密码
       // createUser(phone, hashedPassword)
+      await this.userService.invoke(phone, hashedPassword)
 
       this.res.status(201).send('注册成功')
     } catch (error) {

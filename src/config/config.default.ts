@@ -1,4 +1,5 @@
 import { MidwayConfig } from '@midwayjs/core'
+// import User from '../entity/user'
 // import { RedisService } from '@midwayjs/redis'
 
 export default {
@@ -31,14 +32,14 @@ export default {
     // https://www.mongodb.com/docs/drivers/node/current/fundamentals/connection/connection-options/#std-label-node-connection-options
     dataSource: {
       default: {
-        uri: 'mongodb://localhost:27017/mock',
+        uri: 'mongodb://127.0.0.1:27017/mock',
         options: {
           useNewUrlParser: true,
           useUnifiedTopology: true,
           user: 'zjp',
           pass: '123456',
           authSource: 'admin',
-          maxPoolSize: 10,
+          // maxPoolSize: 10,
           // maxTimeMS: 30, 查询时设置
           socketTimeoutMS: 30000, // 设置连接空闲时间的阈值为 30 秒
           connectTimeoutMS: 20000, // 设置连接超时时间为 20 秒

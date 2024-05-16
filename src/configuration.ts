@@ -6,6 +6,8 @@ import RedisStore from 'connect-redis'
 import { join } from 'path'
 import redisClient from './db/redis'
 import * as mongoose from '@midwayjs/mongoose'
+import { Connection } from 'mongoose'
+import { MongooseDataSourceManager } from '@midwayjs/mongoose'
 // import MogoDBConnect from './db/mongoose-db'
 
 @Configuration({
@@ -13,6 +15,8 @@ import * as mongoose from '@midwayjs/mongoose'
   importConfigs: [join(__dirname, './config')],
 })
 export class MainConfiguration {
+  dbConn: Connection
+
   @App()
   container
 
@@ -22,11 +26,23 @@ export class MainConfiguration {
   @Inject()
   sessionStoreManager: session.SessionStoreManager
 
+  @Inject()
+  dataSourceManager: MongooseDataSourceManager
+  // dataSourceManager
+
   // @Inject()
   // dbDBConnect: MogoDBConnect
 
   async onReady() {
-    // this.dbDBConnect()
+    this.dbConn = this.dataSourceManager.getDataSource('default')
+    this.dbConn.on(
+      'error',
+      console.error.bind(console, 'mongodb数据库连接错误')
+    )
+    this.dbConn.once('open', async () => {
+      console.log('mongodb成功连接到数据库')
+    })
+
     this.sessionStoreManager.setSessionStore(
       () => {
         return RedisStore
