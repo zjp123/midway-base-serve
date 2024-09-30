@@ -1,11 +1,11 @@
 import { Controller, Get, Inject } from '@midwayjs/core'
-import { Context, Response } from '@midwayjs/express'
+import { Response } from '@midwayjs/express'
 import { UserService } from '../service/user.service'
 
 @Controller('/')
 export class HomeController {
   @Inject()
-  ctx: Context
+  ctx
 
   @Inject()
   res: Response
@@ -15,6 +15,7 @@ export class HomeController {
 
   @Get('/')
   async home(): Promise<string> {
+    this.ctx.session.mmmmm = 'abc'
     return 'Hello Midwayjs!'
   }
   async login() {

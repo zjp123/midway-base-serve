@@ -17,12 +17,13 @@ export default {
   //   },
   // },
   session: {
+    // sameSite: 'none',
     secret: 'zjl_zjp',
     name: 'zjl',
     cookie: {
       maxAge: 24 * 3600 * 1000,
       httpOnly: true,
-      // sameSite: null,
+      sameSite: 'none',
     },
     // store: '@midwayjs/redis'
   },
@@ -32,7 +33,7 @@ export default {
     // https://www.mongodb.com/docs/drivers/node/current/fundamentals/connection/connection-options/#std-label-node-connection-options
     dataSource: {
       default: {
-        uri: 'mongodb://127.0.0.1:27017/mock',
+        uri: 'mongodb://127.0.0.1:27017/zjp_base',
         options: {
           useNewUrlParser: true,
           useUnifiedTopology: true,

@@ -9,6 +9,7 @@ import * as mongoose from '@midwayjs/mongoose'
 import { Connection } from 'mongoose'
 import { MongooseDataSourceManager } from '@midwayjs/mongoose'
 // import MogoDBConnect from './db/mongoose-db'
+import * as expressSource from 'express'
 
 @Configuration({
   imports: [express, mongoose],
@@ -52,6 +53,8 @@ export class MainConfiguration {
         prefix: 'myapp:',
       }
     )
+    // 依然可以像单独使用express 一样 
+    this.app.use(expressSource.static(join(__dirname, './public')));
     // this.sessionStoreManager.setSessionStore(RedisStore, {
     //   client: redisClient,
     //   prefix: "myapp:",
