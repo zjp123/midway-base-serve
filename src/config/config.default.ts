@@ -24,6 +24,7 @@ export default {
     cookie: {
       maxAge: 24 * 3600 * 1000,
       httpOnly: true,
+      // secure: true, // https
       sameSite: null, // 不能写成'none' 允许 Cookie 在任何跨站点请求中发送，包括 GET、POST 和其他跨域请求。但为了安全性，当 SameSite 为 None 时，必须同时设置 Secure 属性，即 Cookie 只能在 HTTPS 请求中传输。
     },
     // store: '@midwayjs/redis'
