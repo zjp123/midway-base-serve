@@ -1,10 +1,9 @@
 import { MidwayConfig } from '@midwayjs/core'
 // import User from '../entity/user'
-// import { RedisService } from '@midwayjs/redis'
 
 export default {
   // use for cookie sign key, should change to your own and keep security
-  keys: ['2d_g', 'gk6_8'],
+  keys: ['2d_g', 'gk6_8'], // Cookie 秘钥 使用的是cookie-parser
   express: {
     port: 7001,
   },
@@ -16,14 +15,16 @@ export default {
   //     db: 0,
   //   },
   // },
-  session: {
-    // sameSite: 'none',
-    secret: 'zjl_zjp',
-    name: 'zjl',
+  session: { // 使用的是 cookie-session 轻量级的session 把session加密存在cookie中
+    // secret: 'zjl_zjp', // 未提供keys时 它生效
+    keys: ['zbt_zjp'],
+    name: 'zbt_ck',
+    resave: true,
+    saveUninitialized: true,
     cookie: {
       maxAge: 24 * 3600 * 1000,
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: null, // 不能写成'none' 允许 Cookie 在任何跨站点请求中发送，包括 GET、POST 和其他跨域请求。但为了安全性，当 SameSite 为 None 时，必须同时设置 Secure 属性，即 Cookie 只能在 HTTPS 请求中传输。
     },
     // store: '@midwayjs/redis'
   },

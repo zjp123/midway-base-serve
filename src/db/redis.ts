@@ -37,7 +37,7 @@ redisClient.on('reconnecting', delay => {
 
 // 监听连接成功事件
 redisClient.on('ready', function () {
-  console.log('redis 连接成功')
+  console.log('redis 连接成功666')
 })
 
 export default redisClient

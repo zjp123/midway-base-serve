@@ -1,6 +1,7 @@
 import { Controller, Get, Inject } from '@midwayjs/core'
 import { Response } from '@midwayjs/express'
 import { UserService } from '../service/user.service'
+import * as session from '@midwayjs/express-session'
 
 @Controller('/')
 export class HomeController {
@@ -12,12 +13,23 @@ export class HomeController {
 
   @Inject()
   userService: UserService
+  
+  @Inject()
+  sessionStoreManager: session.SessionStoreManager
 
   @Get('/')
-  async home(): Promise<string> {
-    this.ctx.session.mmmmm = 'abc'
-    return 'Hello Midwayjs!'
+  async home() {
+    // const store = this.sessionStoreManager.getSessionStore()
+    // store.set('one', 666)
+    if (!this.ctx.session.diy_cookie) {
+      this.ctx.session.diy_cookie = 1  // 只在第一次访问时设置 views
+    } else {
+      this.ctx.session.diy_cookie++
+    }
+  
+    this.res.send(this.ctx.session.diy_cookie + 'Hello Midwayjs!')
   }
+  @Get('/login')
   async login() {
     // const { username, password } = this.ctx.body
     // const user = this.userService[username]
@@ -27,6 +39,7 @@ export class HomeController {
     // // 设置session
     // req.session.userId = username; // 存储用户唯一标识
     // req.session.loggedIn = true;
+    this.ctx.session.hhh = '哈哈哈'
     this.res.send('Logged in successfully')
   }
 }
