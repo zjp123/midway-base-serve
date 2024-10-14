@@ -8,9 +8,10 @@ import * as mongoose from '@midwayjs/mongoose'
 import { Connection } from 'mongoose'
 import { MongooseDataSourceManager } from '@midwayjs/mongoose'
 import * as expressSource from 'express'
-
+import * as jwt from '@midwayjs/jwt'
+import * as crossDomain from '@midwayjs/cross-domain'
 @Configuration({
-  imports: [express, mongoose],
+  imports: [express, mongoose, jwt, crossDomain],
   importConfigs: [join(__dirname, './config')],
   detectorOptions: {
     ignore: [
@@ -55,11 +56,11 @@ export class MainConfiguration {
         prefix: 'zjp:',
       }
     )
-    // 依然可以像单独使用express 一样 
+    // 依然可以像单独使用express 一样
     this.app.use(expressSource.static(join(__dirname, './public')))
-    
+
   }
-  
+
   async onConfigLoad() {
     // 直接返回数据，会自动合并到配置中
     // return {
