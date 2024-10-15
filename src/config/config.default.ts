@@ -7,6 +7,10 @@ export default {
   express: {
     port: 7001,
   },
+  cors: {
+    // origin: '*',
+    credentials: true // 前端请求需要加上credentials: "include",
+  },
   // redis: {
   //   client: {
   //     port: 6379,
@@ -15,6 +19,19 @@ export default {
   //     db: 0,
   //   },
   // },
+  jwt: {
+    secret: 'zjpyfc888', // fs.readFileSync('xxxxx.key')
+    sign: {
+      // signOptions
+      expiresIn: '2d', // https://github.com/vercel/ms
+    },
+    verify: {
+      // verifyOptions
+    },
+    decode: {
+      // decodeOptions
+    }
+  },
   session: { // 使用的是 cookie-session 轻量级的session 把session加密存在cookie中
     // secret: 'zjl_zjp', // 未提供keys时 它生效
     keys: ['zbt_zjp'],
