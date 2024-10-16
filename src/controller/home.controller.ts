@@ -13,7 +13,7 @@ export class HomeController {
 
   @Inject()
   userService: UserService
-  
+
   @Inject()
   sessionStoreManager: session.SessionStoreManager
 
@@ -26,7 +26,7 @@ export class HomeController {
     } else {
       this.ctx.session.diy_cookie++
     }
-  
+
     this.res.send(this.ctx.session.diy_cookie + 'Hello Midwayjs!')
   }
   @Get('/login')
@@ -41,5 +41,9 @@ export class HomeController {
     // req.session.loggedIn = true;
     this.ctx.session.hhh = '哈哈哈'
     this.res.send('Logged in successfully')
+  }
+  @Get('/test')
+  async test() {
+    this.res.send('testtest')
   }
 }

@@ -10,13 +10,15 @@ import { MongooseDataSourceManager } from '@midwayjs/mongoose'
 import * as expressSource from 'express'
 import * as jwt from '@midwayjs/jwt'
 import * as crossDomain from '@midwayjs/cross-domain'
+import { JwtMiddleware } from './middleware/jwt.middleware'
+import { GlobalMatchFilter, GlobalError } from './filter/global.match-res' // 解决express 中间件返回值问题
 @Configuration({
   imports: [express, mongoose, jwt, crossDomain],
   importConfigs: [join(__dirname, './config')],
   detectorOptions: {
     ignore: [
-      // '**/db/**' // midway 会扫描src下的代码 依赖注入
-      '**/public/**'
+      '**/db/**', // midway 会扫描src下的代码 依赖注入
+      '**/public/**',
     ]
   }
 })
@@ -59,6 +61,10 @@ export class MainConfiguration {
     )
     // 依然可以像单独使用express 一样
     this.app.use(expressSource.static(join(__dirname, './public')))
+    this.app.useMiddleware([
+      JwtMiddleware,
+    ])
+    this.app.useFilter([GlobalMatchFilter, GlobalError])
 
   }
 
