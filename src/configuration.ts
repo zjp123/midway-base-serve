@@ -16,6 +16,7 @@ import * as crossDomain from '@midwayjs/cross-domain'
   detectorOptions: {
     ignore: [
       // '**/db/**' // midway 会扫描src下的代码 依赖注入
+      '**/public/**'
     ]
   }
 })
