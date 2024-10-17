@@ -6,10 +6,21 @@ export default {
   keys: ['2d_g', 'gk6_8'], // Cookie 秘钥 使用的是cookie-parser
   express: {
     port: 7001,
+    contextLoggerFormat: info => {
+      // 等价 req
+      const req = info.ctx;
+      const userId = req?.['session']?.['userId'] || '-';
+      return `${info.timestamp} ${info.LEVEL} ${info.pid} [${userId} - ${Date.now() - req.startTime}ms ${req.method}] ${info.message}`
+    }
   },
   cors: {
     // origin: '*',
     credentials: true // 前端请求需要加上credentials: "include",
+  },
+  midwayLogger: {
+    default: {
+      level: 'info', // error warn info 都可以看到 默认日志会存在 7 天
+    },
   },
   // redis: {
   //   client: {

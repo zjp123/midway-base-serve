@@ -53,8 +53,8 @@ session
 cors跨域
 filter 过滤器，错误或者返回值
 
-守卫--未做
-日志--未做
-filter--未测试
+守卫--先不管，中间之后，路由之前做拦截
+日志-- ctx.logger.info("hello world");
+filter--ok
 
 ```

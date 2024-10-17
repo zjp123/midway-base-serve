@@ -65,7 +65,6 @@ export class MainConfiguration {
       JwtMiddleware,
     ])
     this.app.useFilter([GlobalMatchFilter, GlobalError])
-
   }
 
   async onConfigLoad() {

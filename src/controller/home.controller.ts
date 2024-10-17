@@ -42,8 +42,15 @@ export class HomeController {
     this.ctx.session.hhh = '哈哈哈'
     this.res.send('Logged in successfully')
   }
-  @Get('/test')
+  @Get('/api/test')
   async test() {
-    this.res.send('testtest')
+    // this.res.send('testtest')
+    // return { // 会触发 成功的filter  返回json时才触发 过滤器
+    //   code: 200,
+    //   data: 'jjjj',
+    //   message:'ok'
+    // }
+    // throw new Error("lllll") // 会触发 错误的filter
+
   }
 }
