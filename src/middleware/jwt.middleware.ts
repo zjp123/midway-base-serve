@@ -23,7 +23,7 @@ export class JwtMiddleware {
     return async (ctx: Context, next: NextFunction) => {
       // 判断下有没有校验信息
       if (!ctx.headers['authorization']) {
-        throw new httpError.UnauthorizedError();
+        throw new httpError.UnauthorizedError()
       }
       // 从 header 上获取校验信息
       const parts = ctx.get('authorization').trim().split(' ');
@@ -59,7 +59,7 @@ export class JwtMiddleware {
   // 配置忽略鉴权的路由地址
   public match(ctx: Context): boolean {
     // 为true走鉴权
-    const ignore = ctx.path.indexOf('/api/test') !== -1 || ctx.path.indexOf('/api/login') !== -1
+    const ignore = ctx.path.indexOf('/api/register') !== -1 || ctx.path.indexOf('/api/login') !== -1
     return !ignore;
   }
 }

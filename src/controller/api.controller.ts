@@ -2,6 +2,7 @@ import { Inject, Controller, Get, Query, Post, Body } from '@midwayjs/core'
 import { Context, Response } from '@midwayjs/express'
 import { UserService } from '../service/user.service'
 import { encryptPassword } from '../utils/index'
+// import { User } from '../entity/user'
 @Controller('/api')
 export class APIController {
   @Inject()
@@ -22,13 +23,25 @@ export class APIController {
   @Post('/register')
   async register(
     @Body('phone') phone: string,
-    @Body('password') password: string
+    @Body('password') password: string,
+    @Body('confirmPassword') confirmPassword: string
   ) {
-    // const { username, password } = this.ctx.body
-    console.log(this.ctx.body, 'ooooo')
+    console.log(this.ctx.body)
+    // const { phone, password, confirmPassword } = this.ctx.body
     // 这里应该有一些基础的验证逻辑
-    if (!phone || !password) {
+    if (!phone || !password || !confirmPassword) {
       return this.res.status(400).send('缺少用户名或密码')
+    }
+
+    if (password !== confirmPassword) {
+      return this.res.status(400).json({ message: '密码不匹配' })
+    }
+
+    // 检查用户名是否已存在
+    // const existingUser = await User.findOne({ phone }) 第一种
+    const existingUser = await this.userService.findUser(phone) // 第二种
+    if (existingUser) {
+        return this.res.status(400).json({ message: '重名不可注册' })
     }
 
     try {
@@ -37,9 +50,8 @@ export class APIController {
 
       // 在数据库中创建用户记录，存储用户名和哈希后的密码
       // createUser(phone, hashedPassword)
-      await this.userService.invoke(phone, hashedPassword)
-
-      this.res.status(201).send('注册成功')
+      await this.userService.createUser(phone, hashedPassword)
+      this.res.status(200).send('注册成功')
     } catch (error) {
       console.error('注册失败', error)
       this.res.status(500).send('服务器错误')

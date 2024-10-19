@@ -11,6 +11,7 @@
     "@midwayjs/jwt": "^3.18.2",
     "@midwayjs/logger": "^3.1.0",
     "@midwayjs/mongoose": "^3.16.0",
+    "bcryptjs": "^2.4.3",
     "connect-redis": "^7.1.1",
     "ioredis": "^5.4.1",
     "mongoose": "^6.12.8"
@@ -35,6 +36,7 @@
   "scripts": {
     "start": "NODE_ENV=production node ./bootstrap.js",
     "dev": "cross-env NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js --ssl",
+    "dev-new": "cross-env NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js",
     "test": "cross-env NODE_ENV=unittest jest",
     "cov": "jest --coverage",
     "lint": "mwts check",
