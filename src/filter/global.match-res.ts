@@ -6,7 +6,7 @@ import { Context, Response } from '@midwayjs/express';
 export class GlobalMatchFilter {
   match(value, req, res) {
     const obj: any = {
-      code: value.code || value.status,
+      code: value.status,
       data: value.data,
       message: value.message,
     }
@@ -21,7 +21,7 @@ export class GlobalError {
     if (err) {
       console.log(err, '////////////////')
       return {
-        code: err.code || err.status,
+        code: err.status,
         data: null,
         message: err.message,
       }

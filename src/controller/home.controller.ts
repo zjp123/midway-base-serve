@@ -31,20 +31,7 @@ export class HomeController {
   }
   @Get('/login')
   async login() {
-    // const { username, password } = this.ctx.body
-    // const user = this.userService[username]
-    // if (!user || !(await bcrypt.compare(password, user.password))) {
-    //   return res.status(401).send('Invalid credentials');
-    // }
-    // // 设置session
-    // req.session.userId = username; // 存储用户唯一标识
-    // req.session.loggedIn = true;
-    this.ctx.session.hhh = '哈哈哈'
-    this.res.send('Logged in successfully')
-  }
-  @Get('/api/test')
-  async test() {
-    // this.res.send('testtest')
+    this.res.send('login')
     // return { // 会触发 成功的filter  返回json时才触发 过滤器
     //   code: 200,
     //   data: 'jjjj',

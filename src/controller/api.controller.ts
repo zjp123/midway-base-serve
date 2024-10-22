@@ -1,7 +1,8 @@
-import { Inject, Controller, Get, Query, Post, Body } from '@midwayjs/core'
+import { Inject, Controller, Post, Body } from '@midwayjs/core'
 import { Context, Response } from '@midwayjs/express'
 import { UserService } from '../service/user.service'
 import { encryptPassword } from '../utils/index'
+import { User } from '../entity/user'
 // import { User } from '../entity/user'
 @Controller('/api')
 export class APIController {
@@ -13,12 +14,6 @@ export class APIController {
 
   @Inject()
   res: Response
-
-  @Get('/get_user')
-  async getUser(@Query('uid') uid) {
-    const user = await this.userService.getUser({ uid })
-    return { success: true, message: 'OK', data: user }
-  }
 
   @Post('/register')
   async register(
@@ -54,7 +49,26 @@ export class APIController {
       this.res.status(200).send('注册成功')
     } catch (error) {
       console.error('注册失败', error)
-      this.res.status(500).send('服务器错误')
+      // this.res.status(500).send(error)
+      return {
+        status: 500,
+        data: null,
+        message: error
+      }
+    }
+  }
+  @Post('/login')
+  async login(
+    @Body('phone') phone: string,
+    @Body('password') password: string,
+  ) {
+    const hashedPassword = encryptPassword(password)
+    const user = await User.findOne({ phone, password: hashedPassword })
+    if (user) {
+        this.res.send('登陆成功，欢迎回到首页！'); // 登陆成功
+        // this.res.redirect('/')
+    } else {
+        this.res.send('用户名或密码错误'); // 错误提示
     }
   }
 }

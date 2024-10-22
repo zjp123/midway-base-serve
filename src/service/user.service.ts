@@ -1,25 +1,20 @@
 import { Inject, Provide } from '@midwayjs/core'
-import { IUserOptions } from '../interface'
+// import { IUserOptions } from '../interface'
 import { Connection } from 'mongoose'
 import { MongooseDataSourceManager } from '@midwayjs/mongoose'
 import { UserSchema } from '../entity/user' // 第一种方式
 // import { UserTest } from '../entity/test-user' 第二种方式
+import { Response } from '@midwayjs/express'
 
 @Provide()
 export class UserService {
   db: Connection
 
   @Inject()
-  dataSourceManager: MongooseDataSourceManager
+  res: Response
 
-  async getUser(options: IUserOptions) {
-    return {
-      uid: options.uid,
-      username: 'mockedName',
-      phone: '12345678901',
-      email: 'xxx.xxx@xxx.com',
-    }
-  }
+  @Inject()
+  dataSourceManager: MongooseDataSourceManager
 
   async findUser(phone: string) {
     this.db = this.dataSourceManager.getDataSource('default')
@@ -48,11 +43,11 @@ export class UserService {
         // })
         await doc.save()
     } catch (error) {
-        return {
-          code: 500,
-          data: null,
-          message: '创建用户错误'
-        }
+      // return { // 这里如果这样返回，那么程序只是认为返回了一个对象，并不是实际想要的效果，触发不了错误机制
+      //   code: 500
+      //   message: 'xxx'
+      // }
+      throw new Error(error)
     }
 
   }
