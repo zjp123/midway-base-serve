@@ -25,18 +25,33 @@ export class APIController {
     // const { phone, password, confirmPassword } = this.ctx.body
     // 这里应该有一些基础的验证逻辑
     if (!phone || !password || !confirmPassword) {
-      return this.res.status(400).send('缺少用户名或密码')
+      // return this.res.status(400).send('缺少用户名或密码')
+      return {
+        status: 400,
+        data: null,
+        message: '缺少用户名或密码'
+      }
     }
 
     if (password !== confirmPassword) {
-      return this.res.status(400).json({ message: '密码不匹配' })
+      // return this.res.status(400).json({ message: '密码不匹配' })
+      return {
+        status: 400,
+        data: null,
+        message: '密码不匹配'
+      }
     }
 
     // 检查用户名是否已存在
     // const existingUser = await User.findOne({ phone }) 第一种
     const existingUser = await this.userService.findUser(phone) // 第二种
     if (existingUser) {
-        return this.res.status(400).json({ message: '重名不可注册' })
+        // return this.res.status(400).json({ message: '重名不可注册' })
+        return {
+          status: 400,
+          data: null,
+          message: '重名不可注册'
+        }
     }
 
     try {
@@ -46,7 +61,12 @@ export class APIController {
       // 在数据库中创建用户记录，存储用户名和哈希后的密码
       // createUser(phone, hashedPassword)
       await this.userService.createUser(phone, hashedPassword)
-      this.res.status(200).send('注册成功')
+      // this.res.status(200).send('注册成功')
+      return {
+        status: 200,
+        data: null,
+        message: 'ok'
+      }
     } catch (error) {
       console.error('注册失败', error)
       // this.res.status(500).send(error)
@@ -65,10 +85,20 @@ export class APIController {
     const hashedPassword = encryptPassword(password)
     const user = await User.findOne({ phone, password: hashedPassword })
     if (user) {
-        this.res.send('登陆成功，欢迎回到首页！'); // 登陆成功
+        // this.res.send('登陆成功，欢迎回到首页！'); // 登陆成功
         // this.res.redirect('/')
+        return {
+          status: 200,
+          data: null,
+          message: 'ok'
+        }
     } else {
-        this.res.send('用户名或密码错误'); // 错误提示
+        // this.res.send('用户名或密码错误'); // 错误提示
+        return {
+          status: 400,
+          data: null,
+          message: '用户名或密码错误'
+        }
     }
   }
 }

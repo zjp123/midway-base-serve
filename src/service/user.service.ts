@@ -4,11 +4,14 @@ import { Connection } from 'mongoose'
 import { MongooseDataSourceManager } from '@midwayjs/mongoose'
 import { UserSchema } from '../entity/user' // 第一种方式
 // import { UserTest } from '../entity/test-user' 第二种方式
-import { Response } from '@midwayjs/express'
+import { Response, Context } from '@midwayjs/express'
 
 @Provide()
 export class UserService {
   db: Connection
+
+  @Inject()
+  ctx: Context
 
   @Inject()
   res: Response
@@ -47,6 +50,7 @@ export class UserService {
       //   code: 500
       //   message: 'xxx'
       // }
+      this.ctx.logger.error(error)
       throw new Error(error)
     }
 
