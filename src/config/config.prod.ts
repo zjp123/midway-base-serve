@@ -1,13 +1,5 @@
 import { MidwayConfig } from '@midwayjs/core'
 // import User from '../entity/user'
-import * as dotenv from 'dotenv'
-import path = require('path')
-
-if (process.env.MIDWAY_SERVER_ENV === 'prod') {
-  dotenv.config({ path: path.join(__dirname, '../../.env.prod') });
-} else {
-  dotenv.config({ path: path.join(__dirname, '../../.env.local') });
-}
 
 export default {
   // use for cookie sign key, should change to your own and keep security
@@ -22,7 +14,7 @@ export default {
     }
   },
   cors: {
-    origin: '*',
+    // origin: '*',
     credentials: true // 前端请求需要加上credentials: "include",
   },
   midwayLogger: {
@@ -76,7 +68,7 @@ export default {
           useNewUrlParser: true,
           useUnifiedTopology: true,
           user: 'zjp',
-          pass: '123456',
+          pass: 'qaz123ZJP/',
           authSource: 'admin',
           maxPoolSize: 10,
           // maxTimeMS: 30, 查询时设置

@@ -28,3 +28,9 @@ export function verifyPassword(password, encryptedPassword) {
 
 // const isPasswordCorrect = verifyPassword(password, salt, encryptedPassword)
 // console.log('密码是否正确：', isPasswordCorrect)
+
+export const cors = {
+  'origin': '*',
+  'credentials': true,
+  'allowHeaders': ['Content-Type', 'Content-Length', 'Authorization', 'Accept', 'X-Requested-With']
+}
