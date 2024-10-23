@@ -63,12 +63,12 @@ export default {
     // https://www.mongodb.com/docs/drivers/node/current/fundamentals/connection/connection-options/#std-label-node-connection-options
     dataSource: {
       default: {
-        uri: 'mongodb://127.0.0.1:27017/zjp_base_test',
+        uri: process.env.DATABASE_URL,
         options: {
           useNewUrlParser: true,
           useUnifiedTopology: true,
           user: 'zjp',
-          pass: '123456',
+          pass: process.env.PASS,
           authSource: 'admin',
           maxPoolSize: 10,
           // maxTimeMS: 30, 查询时设置
