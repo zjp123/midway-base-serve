@@ -6,7 +6,7 @@ import path = require('path')
 if (process.env.MIDWAY_SERVER_ENV === 'prod') {
   dotenv.config({ path: path.join(__dirname, '../../.env.prod') });
 } else {
-  dotenv.config({ path: path.join(__dirname, '../../.env.local') });
+  dotenv.config({ path: path.join(__dirname, '../../.env.test') });
 }
 
 export default {
@@ -71,7 +71,7 @@ export default {
     // https://www.mongodb.com/docs/drivers/node/current/fundamentals/connection/connection-options/#std-label-node-connection-options
     dataSource: {
       default: {
-        uri: 'mongodb://127.0.0.1:27017/zjp_base',
+        uri: 'mongodb://127.0.0.1:27017/zjp_base', // 这是本地配置的环境
         options: {
           useNewUrlParser: true,
           useUnifiedTopology: true,

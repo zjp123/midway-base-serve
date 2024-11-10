@@ -45,7 +45,7 @@ mongodb 数据库 mongodb 版本5.0.28
 ```
 redis
 jwt
-MongoDB
+MongoDB--v5.0.28
 mongoose
 日志
 cookie
@@ -57,4 +57,11 @@ filter 过滤器，错误或者返回值
 日志-- ctx.logger.info("hello world");
 filter--ok
 
+```
+### 环境配置
+``` 
+环境包括三种环境，本地开发，test，生产环境, 分别对应，local, test, prod
+local 对应的配置文件是default
+test 就是服务器测试环境
+prod 就是生产环境
 ```
