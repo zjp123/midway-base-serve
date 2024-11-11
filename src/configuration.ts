@@ -12,6 +12,16 @@ import * as jwt from '@midwayjs/jwt'
 import * as crossDomain from '@midwayjs/cross-domain'
 import { JwtMiddleware } from './middleware/jwt.middleware'
 import { GlobalMatchFilter, GlobalError } from './filter/global.match-res' // 解决express 中间件返回值问题
+
+import * as dotenv from 'dotenv'
+import path = require('path')
+
+if (process.env.MIDWAY_SERVER_ENV === 'production') {
+  dotenv.config({ path: path.join(__dirname, './.env.prod') });
+} else if (process.env.MIDWAY_SERVER_ENV === 'test') {
+  dotenv.config({ path: path.join(__dirname, './.env.test') });
+}
+
 @Configuration({
   imports: [express, mongoose, jwt, crossDomain],
   importConfigs: [join(__dirname, './config')],

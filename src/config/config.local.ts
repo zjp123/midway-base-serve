@@ -8,17 +8,17 @@ export default {
     // https://www.mongodb.com/docs/drivers/node/current/fundamentals/connection/connection-options/#std-label-node-connection-options
     dataSource: {
       default: {
-        uri: process.env.DATABASE_URL,
+        uri: 'mongodb://127.0.0.1:27017/zjp_base', // 这是本地配置的环境
         options: {
           useNewUrlParser: true,
           useUnifiedTopology: true,
           user: 'zjp',
-          pass: process.env.PASS,
+          pass: '123456',
           authSource: 'admin',
           maxPoolSize: 10,
           // maxTimeMS: 30, 查询时设置
           socketTimeoutMS: 30000, // 设置连接空闲时间的阈值为 30 秒
-          connectTimeoutMS: 30000, // 设置连接超时时间为 20 秒
+          connectTimeoutMS: 20000, // 设置连接超时时间为 20 秒
           maxIdleTimeMS: 60000, // 设置连接空闲时间的最大值为 1 分钟
           w: 'majority',
           readConcernLevel: 'majority',

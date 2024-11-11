@@ -1,13 +1,5 @@
 import { MidwayConfig } from '@midwayjs/core'
 // import User from '../entity/user'
-import * as dotenv from 'dotenv'
-import path = require('path')
-
-if (process.env.MIDWAY_SERVER_ENV === 'prod') {
-  dotenv.config({ path: path.join(__dirname, '../../.env.prod') });
-} else {
-  dotenv.config({ path: path.join(__dirname, '../../.env.test') });
-}
 
 export default {
   // use for cookie sign key, should change to your own and keep security
@@ -65,6 +57,7 @@ export default {
     },
     // store: '@midwayjs/redis'
   },
+/*
   mongoose: {
     // 完整的options
     // https://mongodb.github.io/node-mongodb-native/4.2/interfaces/MongoClientOptions.html
@@ -93,5 +86,5 @@ export default {
         // entities: [User],
       },
     },
-  },
+  },*/
 } as unknown as MidwayConfig
