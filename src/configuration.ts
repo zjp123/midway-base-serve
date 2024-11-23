@@ -1,9 +1,9 @@
 import { Configuration, App, Inject, IMidwayContainer } from '@midwayjs/core'
 import * as express from '@midwayjs/express'
 import * as session from '@midwayjs/express-session'
-import RedisStore from 'connect-redis'
+// import RedisStore from 'connect-redis'
 import { join } from 'path'
-import redisClient from './db/redis'
+import {redisConnect, redisEvent} from './db/redis_connect'
 import * as mongoose from '@midwayjs/mongoose'
 import { Connection } from 'mongoose'
 import { MongooseDataSourceManager } from '@midwayjs/mongoose'
@@ -15,6 +15,7 @@ import { GlobalMatchFilter, GlobalError } from './filter/global.match-res' // �
 
 import * as dotenv from 'dotenv'
 import path = require('path')
+// import { RedisClient } from 'ioredis/built/connectors/SentinelConnector/types'
 
 if (process.env.MIDWAY_SERVER_ENV === 'production') {
   dotenv.config({ path: path.join(__dirname, './.env.prod') });
@@ -34,6 +35,8 @@ if (process.env.MIDWAY_SERVER_ENV === 'production') {
 })
 export class MainConfiguration {
   dbConn: Connection
+
+  redisClient: any
 
   @App()
   container
@@ -60,15 +63,18 @@ export class MainConfiguration {
       console.log('mongodb成功连接到数据库')
     })
 
-    this.sessionStoreManager.setSessionStore(
-      () => {
-        return RedisStore
-      },
-      {
-        client: redisClient,
-        prefix: 'zjp:',
-      }
-    )
+    this.redisClient = await redisConnect(process)
+    redisEvent(this.redisClient)
+    // this.sessionStoreManager.setSessionStore(
+    //   () => {
+    //     return RedisStore
+    //   },
+    //   {
+    //     client: redisClient,
+    //     prefix: 'zjp:',
+    //   }
+    // )
+
     // 依然可以像单独使用express 一样
     this.app.use(expressSource.static(join(__dirname, './public')))
     this.app.useMiddleware([
@@ -95,6 +101,6 @@ export class MainConfiguration {
   async onStop(): Promise<void> {
     // 关闭数据库连接
     await this.dbConn.close()
-    await redisClient.quit()
+    await this.redisClient.quit()
   }
 }
