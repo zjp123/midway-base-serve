@@ -15,7 +15,7 @@ export default {
   },
   cors: {
     origin: '*',
-    credentials: true // 前端请求需要加上credentials: "include",
+    // credentials: true // 前端请求需要加上credentials: "include",
   },
   midwayLogger: {
     default: {

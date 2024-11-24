@@ -22,7 +22,7 @@ export class UserService {
   async findUser(phone: string) {
     this.db = this.dataSourceManager.getDataSource('default')
     const UserModel = this.db.model('User', UserSchema)
-    const res = UserModel.findOne({ phone })
+    const res = await UserModel.findOne({ phone })
     return res
   }
 
