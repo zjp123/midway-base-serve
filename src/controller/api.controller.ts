@@ -2,7 +2,7 @@ import { Inject, Controller, Post, Body } from '@midwayjs/core'
 import { Context, Response } from '@midwayjs/express'
 import { UserService } from '../service/user.service'
 import { encryptPassword } from '../utils/index'
-import { User } from '../entity/user'
+// import { User } from '../entity/user'
 // import { User } from '../entity/user'
 @Controller('/api')
 export class APIController {
@@ -82,14 +82,19 @@ export class APIController {
     @Body('phone') phone: string,
     @Body('password') password: string,
   ) {
+    console.log(this.ctx.body)
     const hashedPassword = encryptPassword(password)
-    const user = await User.findOne({ phone, password: hashedPassword })
+    const user = await this.userService.findUserOne({ phone, password: hashedPassword })
+    console.log(user, 'user-login')
+    // const user = await User.findOne({ phone, password: hashedPassword })
     if (user) {
         // this.res.send('登陆成功，欢迎回到首页！'); // 登陆成功
         // this.res.redirect('/')
         return {
           status: 200,
-          data: null,
+          data: {
+            token: user._id
+          },
           message: 'ok'
         }
     } else {
@@ -99,6 +104,49 @@ export class APIController {
           data: null,
           message: '用户名或密码错误'
         }
+    }
+  }
+  @Post('/getUserInfo')
+  async getUserInfo(
+    @Body('token') token: string,
+  ) {
+    console.log(this.ctx.body, 'getUserInfo')
+    const user: any = await this.userService.findUserOneById(token)
+    console.log(user, 'user-getUserInfo')
+    // const user = await User.findOne({ phone, password: hashedPassword })
+    if (user) {
+        // this.res.send('登陆成功，欢迎回到首页！'); // 登陆成功
+        // this.res.redirect('/')
+        return {
+          status: 200,
+          data: {
+            userName: user.phone,
+            roleList: ['admin'],
+            userId: user._id
+          },
+          message: 'ok'
+        }
+    } else {
+        return {
+          status: 400,
+          data: null,
+          message: '用户不存在'
+        }
+    }
+  }
+  @Post('/getMenuList')
+  async getMenuList(
+    @Body('token') token: string,
+  ) {
+    console.log(this.ctx.body, 'getMenuList')
+    // const user: any = await this.userService.findUserOneById(token)
+    // console.log(user, 'router-getMenuList')
+    return {
+      status: 200,
+      data: {
+        menuList: []
+      },
+      message: 'ok'
     }
   }
 }

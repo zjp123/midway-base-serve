@@ -26,6 +26,21 @@ export class UserService {
     return res
   }
 
+  async findUserOne({phone, password}: {phone: string, password: string}) {
+    this.db = this.dataSourceManager.getDataSource('default')
+    const UserModel = this.db.model('User', UserSchema)
+    const res = await UserModel.findOne({ phone, password })
+    return res
+  }
+
+  async findUserOneById(id) {
+    // const userid = new mongoose.Types.ObjectId(id)
+    this.db = this.dataSourceManager.getDataSource('default')
+    const UserModel = this.db.model('User', UserSchema)
+    const res = await UserModel.findById(id)
+    return res
+  }
+
   async createUser(phone, password) {
     this.db = this.dataSourceManager.getDataSource('default')
     const UserModel = this.db.model('User', UserSchema)
