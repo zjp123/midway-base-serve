@@ -59,11 +59,14 @@ filter--ok
 
 ```
 ### 环境配置
-``` 
+```
 环境包括三种环境，本地开发，test，生产环境, 分别对应，local, test, prod
-local 对应的配置文件是default
-test 就是服务器测试环境
-prod 就是生产环境
+local 对应的配置文件是default + local
+test 就是服务器测试环境 test + default
+prod 就是生产环境 prod + default
+
+通过jenkins 构建时master分支走 prod + default这种配置
+test分支走test + default
 ```
 
 ### 线上数据库
