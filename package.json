@@ -36,9 +36,9 @@
   },
   "scripts": {
     "start": "cross-env MIDWAY_SERVER_ENV=production NODE_ENV=production node ./bootstrap.js",
-    "dev": "cross-env MIDWAY_SERVER_ENV=local NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js --ssl",
+    "local-ssl": "cross-env MIDWAY_SERVER_ENV=local NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js --ssl",
     "test": "cross-env MIDWAY_SERVER_ENV=test NODE_ENV=test mwtsc --watch --run @midwayjs/mock/app.js --ssl",
-    "dev-new": "cross-env MIDWAY_SERVER_ENV=local NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js",
+    "local": "cross-env MIDWAY_SERVER_ENV=local NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js",
     "test-bac": "cross-env NODE_ENV=unittest jest",
     "cov": "jest --coverage",
     "lint": "mwts check",
