@@ -62,7 +62,11 @@ export class MainConfiguration {
     this.dbConn.once('open', async () => {
       console.log('mongodb成功连接到数据库')
     })
-
+    console.log('当前环境变量MIDWAY_SERVER_ENV', process.env.MIDWAY_SERVER_ENV)
+    console.log('当前数据库地址', process.env.DATABASE_URL)
+    console.log('当前运行环境', this.app.getEnv())
+    console.log('当前运行端口', this.app.getConfig().express)
+    console.log('当前mongoose', this.app.getConfig().mongoose)
     this.redisClient = await redisConnect(process)
     redisEvent(this.redisClient)
     // this.sessionStoreManager.setSessionStore(
